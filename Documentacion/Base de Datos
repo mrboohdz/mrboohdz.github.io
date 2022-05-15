@@ -1,0 +1,206 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost
+-- Tiempo de generación: 12-04-2022 a las 00:42:04
+-- Versión del servidor: 8.0.13-4
+-- Versión de PHP: 7.2.24-0ubuntu0.18.04.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `V9T6OTCIlR`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Direccion`
+--
+
+CREATE TABLE `Direccion` (
+  `idDireccion` int(5) NOT NULL,
+  `calle` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `noExterior` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `noInterior` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `cp` int(5) NOT NULL,
+  `colonia` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `municipio` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` varchar(25) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Empleado`
+--
+
+CREATE TABLE `Empleado` (
+  `noTrabajador` int(5) NOT NULL,
+  `idDireccion` int(5) NOT NULL,
+  `idEmpresa` int(5) NOT NULL,
+  `tEmergencia` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `nombres` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `aPaterno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `aMaterno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaNacimiento` date NOT NULL,
+  `curp` varchar(18) COLLATE utf8_unicode_ci NOT NULL,
+  `noCelular` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `noCasa` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `genero` int(1) NOT NULL,
+  `cEmergencia` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `sueldo` float NOT NULL,
+  `fechaIngreso` date NOT NULL,
+  `puesto` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `noContrato` int(5) NOT NULL,
+  `linkCurp` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `oMedica` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `salud` int(1) NOT NULL,
+  `nss` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `linkRfc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `rfc` varchar(13) COLLATE utf8_unicode_ci NOT NULL,
+  `objContrato` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `linkContrato` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Empresa`
+--
+
+CREATE TABLE `Empresa` (
+  `idEmpresa` int(4) NOT NULL,
+  `nombre` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaFundacion` date NOT NULL,
+  `giroEmpresa` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `regimenF` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `edificio` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `idDireccion` int(5) NOT NULL,
+  `telefono` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `repLegal` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `rfc` varchar(13) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Historial`
+--
+
+CREATE TABLE `Historial` (
+  `idUsuario` int(3) NOT NULL,
+  `descripcion` text COLLATE utf8_unicode_ci NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Login`
+--
+
+CREATE TABLE `Login` (
+  `idUsuario` int(3) NOT NULL,
+  `usuario` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `contrasena` varchar(12) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Direccion`
+--
+ALTER TABLE `Direccion`
+  ADD PRIMARY KEY (`idDireccion`);
+
+--
+-- Indices de la tabla `Empleado`
+--
+ALTER TABLE `Empleado`
+  ADD PRIMARY KEY (`noTrabajador`),
+  ADD KEY `idDireccion` (`idDireccion`),
+  ADD KEY `idEmpresa` (`idEmpresa`);
+
+--
+-- Indices de la tabla `Empresa`
+--
+ALTER TABLE `Empresa`
+  ADD PRIMARY KEY (`idEmpresa`),
+  ADD KEY `idDireccion` (`idDireccion`);
+
+--
+-- Indices de la tabla `Historial`
+--
+ALTER TABLE `Historial`
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `Login`
+--
+ALTER TABLE `Login`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Direccion`
+--
+ALTER TABLE `Direccion`
+  MODIFY `idDireccion` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `Empleado`
+--
+ALTER TABLE `Empleado`
+  MODIFY `noTrabajador` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `Empresa`
+--
+ALTER TABLE `Empresa`
+  MODIFY `idEmpresa` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `Empleado`
+--
+ALTER TABLE `Empleado`
+  ADD CONSTRAINT `Empleado_ibfk_1` FOREIGN KEY (`idDireccion`) REFERENCES `Direccion` (`iddireccion`),
+  ADD CONSTRAINT `Empleado_ibfk_2` FOREIGN KEY (`idEmpresa`) REFERENCES `Empresa` (`idempresa`);
+
+--
+-- Filtros para la tabla `Empresa`
+--
+ALTER TABLE `Empresa`
+  ADD CONSTRAINT `Empresa_ibfk_1` FOREIGN KEY (`idDireccion`) REFERENCES `Direccion` (`iddireccion`);
+
+--
+-- Filtros para la tabla `Historial`
+--
+ALTER TABLE `Historial`
+  ADD CONSTRAINT `Historial_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `Login` (`idusuario`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

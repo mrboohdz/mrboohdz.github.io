@@ -1,0 +1,26 @@
+[
+    {
+        "idTrabajador": 1,
+        "nombreTrabajador": "Tony Stark",
+        "fechaTrabajador":1963,
+        "fotoTrabajador":"./img/person-circle.svg"
+    },
+    {
+        "idTrabajador": 2,
+        "nombreTrabajador": "Steve Rogers",
+        "fechaTrabajador":1936,
+        "fotoTrabajador":"./img/person-circle.svg"
+    },
+    {
+        "idTrabajador": 3,
+        "nombreTrabajador": "Matt Murdock",
+        "fechaTrabajador":1978,
+        "fotoTrabajador":"./img/person-circle.svg"
+    },
+    {
+        "idTrabajador": 4,
+        "nombreTrabajador": "Peter Parker",
+        "fechaTrabajador":1996,
+        "fotoTrabajador":"./img/person-circle.svg"
+    }
+]
