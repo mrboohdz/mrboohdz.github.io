@@ -1,20 +1,35 @@
 <?php
+  session_start();
+if (isset($_SESSION['user_id'])) {
+  header('Location: /index.php');
+}
   require 'bd.php';
   $message = '';
-  if (!empty($_POST['user']) && !empty($_POST['password'])) {
-    if($_POST['password'] == $_POST['password1']){
-      $sql = "INSERT INTO Login (usuario,password) VALUES ( '{$_POST['user']}' , '{$_POST['password']}' )";
-      $stmt = $conn->prepare($sql);
-    //  $stmt->bindParam(":user", $_POST['user']);
-    //  $stmt->bindParam(":password", $_POST['password']);
-
-      if ($stmt->execute()) {
-        $message = 'Usuario creado correctamente.';
-      } else {
-        $message = 'Ocurrió un error al crear el usuario. Intente nuevamente.';
-      }
+  if(isset($_POST['btnRegistrar'])){
+    $usuario = $_POST['user'];
+    $pass = $_POST['password'];
+    $pass1 = $_POST['password1'];
+    if(!empty($usuario) && !empty($pass) && !empty($pass1)){
+      if($pass == $pass1){
+        $q = $conn->query("SELECT * FROM Login WHERE usuario = '$usuario'");
+        if(mysqli_num_rows($q) == 0){
+          $sql = "INSERT INTO Login (usuario,password) VALUES ( '$usuario' , '$pass' )";
+          $stmt = $conn->prepare($sql);
+          if ($stmt->execute()) {
+            $message = 'Usuario creado correctamente.';
+            header('Location: index.php');
+            exit;
+          } else {
+            $message = 'Ocurrió un error al crear el usuario. Intente nuevamente.';
+          }
+        }else{
+          $message = "El Usuario ya existe.";
+        }
+      }else{
+          $message = 'Las contraseñas no coinciden.';
+        }
     }else{
-      $message = 'Las contraseñas no son iguales.';
+      $message = 'Campos Vacíos.';
     }
   }
 ?>
@@ -46,7 +61,7 @@
                         <input type="password" name="password"  id="password" placeholder="Ingresa tu Contraseña" class="form-control"><br>
                         <label>Repita la Contraseña:</label>
                         <input type="password" name="password1"  id="password" placeholder="Repite tu Contraseña" class="form-control"><br>
-                        <input type="submit" class="btn btn-guardar btn-lg d-grid gap-2 col-5 mx-auto" value="Registrarse">
+                        <input type="submit" name = "btnRegistrar" class="btn btn-guardar btn-lg d-grid gap-2 col-5 mx-auto" value="Registrarse">
                     </form>
                 </div>
                 <div class="col-md-3"></div>
@@ -71,5 +86,4 @@
             </div>
         </footer>
     </body>
-
 </html>

@@ -1,4 +1,27 @@
-<?php require 'bd.php'?>
+<?php
+/*  session_start();
+
+  if (isset($_SESSION['user_id'])) {
+    header('Location: /php-login');
+  } */
+  require 'bd.php';
+  if(isset($_POST['btnInicio'])){
+    $usuario = $_POST['user'];
+    $pass = $_POST['password'];
+    if(!empty($usuario) && !empty($pass)){
+      $q = $conn->query("SELECT password FROM Login WHERE usuario = '$usuario'");
+      $res = $q->fetch_assoc();
+      if(mysqli_num_rows($q) != 0 && strcmp($pass, $res['password'])==0){
+      /*  AQUI A DONDE VA UNA VEZ INICIADA SESION
+      */
+      }else{
+        $message = 'Usuario o contraseña incorrectas.';
+      }
+    }else{
+      $message = 'Campos Vacíos.';
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -12,6 +35,9 @@
     </head>
     <body class="bg-C">
         <?php require 'partials/header.php' ?>
+        <?php if(!empty($message)): ?>
+        <?php echo  "<script> alert('".$message."'); </script>" ?>
+        <?php endif; ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-3"></div>
@@ -22,7 +48,7 @@
                         <input type="text" name="user" id="user" placeholder="Ingresa tu Usuario" class="form-control"><br>
                         <label>Contraseña:</label>
                         <input type="password" name="password"  id="password" placeholder="Ingresa tu Contraseña" class="form-control"><br>
-                        <input type="submit" class="btn btn-guardar btn-lg d-grid gap-2 col-5 mx-auto" value="Iniciar Sesión">
+                        <input type="submit" name="btnInicio" class="btn btn-guardar btn-lg d-grid gap-2 col-5 mx-auto" value="Iniciar Sesión">
                     </form>
                 </div>
                 <div class="col-md-3"></div>
